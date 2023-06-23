@@ -1,0 +1,105 @@
+﻿@using SistemaAcademia.Enums;
+@model RegistroModel
+
+@{
+    ViewData["Title"] = "Acesso do Usuário";
+    Layout = "_LayoutDeslogado";
+}
+<div class="d-flex justify-content-center">
+    <div class="form">
+
+        <div class="buttons">
+            <label for="chbox" class="login btn"><span>Login</span></label>
+            <label for="chbox" class="Registro btn"><span>Registrar-se</span></label>
+        </div>
+
+        <input type="checkbox" id="chbox">
+        <div class="layer"></div>
+        <div class="layer2"></div>
+        <div class="login_form">
+            <form class="form-login" asp-controller="Login" asp-action="Entrar">
+                <div class="mb-3">
+                    <label asp-for="Entrada.Login" class="form-label">Login</label>
+                    <input asp-for="Entrada.Login" type="text" class="form-control">
+                    @Html.ValidationMessageFor(x => x.Entrada.Login)
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Entrada.Senha" class="form-label">Senha</label>
+                    <input type="password" asp-for="Entrada.Senha" class="form-control">
+                    @Html.ValidationMessageFor(x => x.Entrada.Senha)
+                </div>
+                <p class="mb-4 text-sm mx-auto">
+                    Esqueceu sua senha?
+                    <a href="#" class="fw-bold">Redefinir Senha</a>
+                </p>
+                <div class="col-12 d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="Registro_form">
+            <form class="form-registro" asp-controller="Login" asp-action="Criar" method="post">
+                <div class="mb-3">
+                    <label asp-for="Cadastro.Nome" class="form-label">Nome Completo</label>
+                    <input type="text" asp-for="Cadastro.Nome" class="form-control">
+                    @Html.ValidationMessageFor(x => x.Cadastro.Nome)
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Cadastro.CPFCNPJ" class="form-label">CPF ou CNPJ</label>
+                    <input type="text" asp-for="Cadastro.CPFCNPJ" id="cpfCnpj" onkeyup="formataValorCpfCnpj(this)" onpaste="TrataPaste(this, event, 'cpfCnpj')" maxlength=17 class="form-control">
+
+                    @Html.ValidationMessageFor(x => x.Cadastro.CPFCNPJ)
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Cadastro.DataNascimento" class="form-label">Data de nascimento</label>
+                    <input type="date" asp-for="Cadastro.DataNascimento" class="form-control">
+                    @Html.ValidationMessageFor(x => x.Cadastro.DataNascimento)
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Cadastro.Email" class="form-label">E-mail</label>
+                    <input type="email" asp-for="Cadastro.Email" class="form-control">
+                    @Html.ValidationMessageFor(x => x.Cadastro.Email)
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Cadastro.Celular" class="form-label">Celular</label>
+                    <input type="tel" asp-for="Cadastro.Celular" class="form-control">
+                    @Html.ValidationMessageFor(x => x.Cadastro.Celular)
+                </div>
+
+
+                <div class="mb-3">
+                    <label asp-for="Cadastro.Login" class="form-label">Login</label>
+                    <input type="text" asp-for="Cadastro.Login" class="form-control">
+                    @Html.ValidationMessageFor(x => x.Cadastro.Login)
+                </div>
+                <div class="mb-3">
+                    <label for="PerfilEnum" class="form-label">Tipo de conta</label>
+                    <select class="form-select" asp-for="Cadastro.Perfil">
+                        <option selected>Selecione</option>
+                        <option value="@PerfilEnum.Padrao">Aluno</option>
+                        <option value="@PerfilEnum.Admin">Proprietário</option>
+                    </select>
+                    @Html.ValidationMessageFor(x => x.Cadastro.Perfil)
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Cadastro.Senha" class="form-label">Senha</label>
+                    <input type="password" asp-for="Cadastro.Senha" class="form-control">
+                    @Html.ValidationMessageFor(x => x.Cadastro.Senha)
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox">
+                    <label class="form-check-label" for="termosCondicoes"></label>
+                    Li e concordo com os <a href="#">Termos de Uso</a>
+                </div>
+                <div class="col-12 d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
